@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body { @apply bg-white font-sans text-black antialiased; }
+  :focus-visible { outline: 2px solid #000; outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-[2px] px-4 py-2.5 text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50; }
+  .btn-primary { @apply btn bg-black text-white hover:bg-sand-700; }
+  .btn-outline { @apply btn border border-black text-black hover:bg-black hover:text-white; }
+  .btn-quiet { @apply btn text-sand-700 hover:bg-sand-100; }
+  .btn-danger { @apply btn border border-red-800 text-red-800 hover:bg-red-800 hover:text-white; }
+  .input { @apply w-full rounded-[2px] border border-sand-300 bg-white px-3 py-2.5 text-sm placeholder:text-sand-500 focus:border-black focus:outline-none disabled:bg-sand-50; }
+  .label { @apply mb-1.5 block text-sm font-medium; }
+  .hint { @apply mt-1 text-xs text-sand-500; }
+  .card { @apply rounded border border-sand-200 bg-white; }
+}
+
+/* Storefront theming: every brand sets its own colors through CSS variables (see lib/theme.ts). */
+.store-root {
+  --b-muted: color-mix(in srgb, var(--b-text) 62%, var(--b-bg));
+  --b-line: color-mix(in srgb, var(--b-text) 16%, var(--b-bg));
+  --b-soft: color-mix(in srgb, var(--b-text) 6%, var(--b-bg));
+  background: var(--b-bg);
+  color: var(--b-text);
+  min-height: 100vh;
+}
+.store-root :focus-visible { outline: 2px solid var(--b-text); outline-offset: 2px; }
+.s-muted { color: var(--b-muted); }
+.s-border { border-color: var(--b-line); }
+.s-soft { background: var(--b-soft); }
+.s-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  background: var(--b-primary); color: var(--b-on-primary); border: 1px solid var(--b-primary);
+  border-radius: 2px; padding: .8rem 1.4rem; font-size: .9rem; font-weight: 500; cursor: pointer;
+  transition: opacity .15s ease;
+}
+.s-btn:hover { opacity: .85; }
+.s-btn:disabled { opacity: .45; cursor: not-allowed; }
+.s-btn-outline { background: transparent; color: var(--b-text); border-color: var(--b-text); }
+.s-input {
+  width: 100%; border: 1px solid var(--b-line); border-radius: 2px; background: transparent; color: var(--b-text);
+  padding: .7rem .8rem; font-size: .9rem;
+}
+.s-input:focus { border-color: var(--b-text); outline: none; }
+.s-input::placeholder { color: var(--b-muted); }
+.s-chip {
+  border: 1px solid var(--b-line); border-radius: 999px; padding: .4rem .9rem; font-size: .85rem; cursor: pointer;
+  background: transparent; color: var(--b-text); transition: border-color .15s ease, background .15s ease;
+}
+.s-chip:hover { border-color: var(--b-text); }
+.s-chip[aria-pressed="true"], .s-chip[aria-checked="true"] { background: var(--b-text); color: var(--b-bg); border-color: var(--b-text); }
+.s-chip:disabled { opacity: .4; text-decoration: line-through; cursor: not-allowed; }
+.s-badge { background: var(--b-accent); color: var(--b-on-accent); font-size: .7rem; font-weight: 600; padding: .15rem .5rem; border-radius: 2px; }
